@@ -209,6 +209,8 @@ export default {
 
         this.mulai = firstDay.toLocaleDateString('id-ID',options)
         this.akhir = lastDay.toLocaleDateString('id-ID',options)
+                this.$store.dispatch('user/isLicenceActived')
+
         await this.getList()
     },
     methods: {

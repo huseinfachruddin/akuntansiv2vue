@@ -214,6 +214,8 @@ export default {
         }
     },
     created() {
+                this.$store.dispatch('user/isLicenceActived')
+
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();

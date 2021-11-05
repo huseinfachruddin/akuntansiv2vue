@@ -177,6 +177,8 @@ data() {
 }
 },
 created() {
+          this.$store.dispatch('user/isLicenceActived')
+
     this.getList()
 },
 methods: {

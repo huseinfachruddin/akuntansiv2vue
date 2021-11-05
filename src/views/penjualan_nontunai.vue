@@ -376,6 +376,8 @@ export default {
         }
     },
     created() {
+                this.$store.dispatch('user/isLicenceActived')
+
         this.getList()
         let DD = new Date().getDate()
         let MM = new Date().getMonth() + 1

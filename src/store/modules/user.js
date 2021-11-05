@@ -35,7 +35,6 @@ const mutations = {
   SET_ID: (state, id) => {
     state.id = id
   }
-
 }
 
 const actions = {
@@ -59,6 +58,8 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
+
+
       axios.get('/profile', {
         headers: { Authorization: `Bearer ${state.token}` }
       }).then(response => {
@@ -117,6 +118,20 @@ const actions = {
     })
   },
 
+// check lisensi 
+isLicenceActived({commit, state, dispatch}){
+  const licence = localStorage.getItem('licence') != null ? 'empty' : localStorage.getItem('licence')
+  const code = localStorage.getItem('product_code') != null ? 'empty' : localStorage.getItem('product_code')
+    axios.get(`http://lisensi.kawanmama.com/api/checking?product_code=${code}&licence=${licence}`).then(response => {
+    next()
+  }).catch(err => {
+    if(!err.response.data.success){
+      alert('maaf product mu sudah expired')
+      router.push({path:'/permission/lisensi'})
+    } else {
+      next()
+    }}) 
+},
   // remove token
   resetToken({ commit }) {
     return new Promise(resolve => {

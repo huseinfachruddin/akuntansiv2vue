@@ -11,6 +11,9 @@ import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
 import nestedRouter from './modules/nested' 
+import axios from 'axios'
+
+
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -598,6 +601,18 @@ import nestedRouter from './modules/nested'
   }
 },
 {
+    path: 'lisensi',
+    component: () => import('@/views/lisensi'),
+    name: 'lisensi',
+    hidden : false,
+    meta: {
+      title: 'Lisensi',
+      roles: ['admin']
+  }
+},
+
+
+{
     path: 'user',
     component: () => import('@/views/user'),
     name: 'RolePermission',
@@ -671,5 +686,6 @@ export function resetRouter() {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher // reset router
 }
+
 
 export default router

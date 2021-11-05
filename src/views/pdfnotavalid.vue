@@ -122,6 +122,8 @@ data() {
 		}
 },
 async created() {
+          this.$store.dispatch('user/isLicenceActived')
+
   await this.getList()
    await this.print();
 },

@@ -218,6 +218,7 @@ export default {
         }
     },
     created() {
+        this.$store.dispatch('user/isLicenceActived')
 
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
 

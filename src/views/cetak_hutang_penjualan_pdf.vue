@@ -236,6 +236,8 @@ export default {
         }
     },
     async created() {
+                this.$store.dispatch('user/isLicenceActived')
+
         await this.getList()
         await print()
         let DD = new Date().getDate()
