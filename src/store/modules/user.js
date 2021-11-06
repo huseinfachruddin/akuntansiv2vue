@@ -120,16 +120,17 @@ const actions = {
 
 // check lisensi 
 isLicenceActived({commit, state, dispatch}){
-  const licence = localStorage.getItem('licence') != null ? 'empty' : localStorage.getItem('licence')
-  const code = localStorage.getItem('product_code') != null ? 'empty' : localStorage.getItem('product_code')
-    axios.get(`http://lisensi.kawanmama.com/api/checking?product_code=${code}&licence=${licence}`).then(response => {
-    next()
+  const licence = localStorage.getItem('licence') == null ? 'empty' : localStorage.getItem('licence')
+  const code = localStorage.getItem('product_code') == null ? 'empty' : localStorage.getItem('product_code')
+    axios.get(`https://lisensi.kawanmama.com/api/checking?product_code=${code}&licence=${licence}`).then(response => {
+    console.log('berhasil')
   }).catch(err => {
     if(!err.response.data.success){
       alert('maaf product mu sudah expired')
       router.push({path:'/permission/lisensi'})
     } else {
-      next()
+    console.log('berhasil')
+      
     }}) 
 },
   // remove token
