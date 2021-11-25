@@ -125,6 +125,7 @@ const actions = {
       axios.get('https://lisensi.kawanmama.com/api/checking?licence=' + data.licence + '&product_code=' + data.code).then(response => {
         if (response.status == 401) {
           axios.delete('/licence/delete')
+          router.push({ path: '/permission/lisensi' })
         }
       })
     }).catch(err => {
