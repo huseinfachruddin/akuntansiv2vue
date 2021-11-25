@@ -127,6 +127,9 @@ const actions = {
           axios.delete('/licence/delete')
           router.push({ path: '/permission/lisensi' })
         }
+      }).catch(err=>{
+        axios.delete('/licence/delete')
+        router.push({ path: '/permission/lisensi' })
       })
     }).catch(err => {
       if (!err.response.data.success) {
