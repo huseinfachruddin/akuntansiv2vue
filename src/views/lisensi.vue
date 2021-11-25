@@ -42,16 +42,16 @@
           <span>{{ row.address }}</span>
         </template>
       </el-table-column>
-      <!-- <el-table-column label="Actions" align="center" width="230" class-name="small-padding fixed-width">
+      <el-table-column label="Actions" align="center" width="230" class-name="small-padding fixed-width">
     <template slot-scope="{row}">
-     <el-button type="primary" size="mini" @click="handleUpdate(row)">
+     <!-- <el-button type="primary" size="mini" @click="handleUpdate(row)">
         Edit
-    </el-button>
+    </el-button> -->
     <el-button type="danger" size="mini" @click="handleDelete(row)">
         Delete
     </el-button>
     </template>
-</el-table-column> -->
+</el-table-column>
     </el-table>
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
