@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 import Cookies from 'js-cookie'
+import axios from '@/api/axios'
 
 import 'normalize.css/normalize.css' // a modern alternative to CSS resets
 
@@ -20,10 +21,10 @@ import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
 
-import MoneySpinner from 'v-money-spinner' //MONEY SPINNER
+import MoneySpinner from 'v-money-spinner' // MONEY SPINNER
 import Print from 'vue-print-nb'
-// Global instruction 
-Vue.use(Print);
+// Global instruction
+Vue.use(Print)
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -32,28 +33,41 @@ Vue.use(Print);
  * Currently MockJs will be used in the production environment,
  * please remove it before going online ! ! !
  */
- if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
  	const { mockXHR } = require('../mock')
  	mockXHR()
- }
+}
 
- Vue.use(Element, {
+Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size
   locale: enLang // 如果使用中文，无需设置，请删除
 })
- 
- Vue.use(MoneySpinner)
+
+Vue.use(MoneySpinner)
 
 // register global utility filters
 Object.keys(filters).forEach(key => {
-	Vue.filter(key, filters[key])
+  Vue.filter(key, filters[key])
 })
 
 Vue.config.productionTip = false
+async function myDisplay() {
+  try {
+    const response = await axios.get('/licence')
+    if (response.status = 200) {
+      Vue.prototype.$company = response.data.licence
+    }
+  } catch (error) {
+
+  }
+}
+
+myDisplay()
+
 new Vue({
-	el: '#app',
-	router,
-	store,
-	render: h => h(App),
+  el: '#app',
+  router,
+  store,
+  render: h => h(App)
 
 })

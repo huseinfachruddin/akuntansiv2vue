@@ -7,7 +7,7 @@ import NProgress from 'nprogress'
 const state = {
   token: getToken(),
   name: '',
-  email : '',
+  email: '',
   avatar: '',
   introduction: '',
   roles: []
@@ -58,8 +58,6 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-
-
       axios.get('/profile', {
         headers: { Authorization: `Bearer ${state.token}` }
       }).then(response => {
@@ -74,19 +72,18 @@ const actions = {
         // roles must be a non-empty array
         const role = roles.map((val) => val.name)
 
-
         if (!roles || roles.length <= 0) {
-            commit('SET_ROLES', ['user'])
+          commit('SET_ROLES', ['user'])
         } else {
           commit('SET_ROLES', role)
         }
 
-      commit('SET_NAME', name)
-      commit('SET_ID', id)
-      commit('SET_AVATAR', 'https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png')
-      commit('SET_EMAIL', email)
-      commit('SET_INTRODUCTION', 'introduction')
-      resolve({ roles: role, name, avatar: 'https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png', introduction: 'lol' })
+        commit('SET_NAME', name)
+        commit('SET_ID', id)
+        commit('SET_AVATAR', 'https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png')
+        commit('SET_EMAIL', email)
+        commit('SET_INTRODUCTION', 'introduction')
+        resolve({ roles: role, name, avatar: 'https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png', introduction: 'lol' })
       // }).catch(error => {
       //   reject(error)
       // })
@@ -97,7 +94,6 @@ const actions = {
   // user logout
   logout({ commit, state, dispatch }) {
     return new Promise((resolve, reject) => {
-
       NProgress.start()
       axios.get('/logout', {
         headers: { Authorization: `Bearer ${state.token}` }
@@ -118,21 +114,28 @@ const actions = {
     })
   },
 
-// check lisensi 
-isLicenceActived({commit, state, dispatch}){
-  const licence = localStorage.getItem('licence') == null ? 'empty' : localStorage.getItem('licence')
-  const code = localStorage.getItem('product_code') == null ? 'empty' : localStorage.getItem('product_code')
-    axios.get(`https://lisensi.kawanmama.com/api/checking?product_code=${code}&licence=${licence}`).then(response => {
-    console.log('berhasil')
-  }).catch(err => {
-    if(!err.response.data.success){
-      alert('maaf product mu sudah expired')
-      router.push({path:'/permission/lisensi'})
-    } else {
-    console.log('berhasil')
-      
-    }}) 
-},
+  // check lisensi
+  isLicenceActived({ commit, state, dispatch }) {
+    axios.get(`/licence`).then(response => {
+      if (response.data.licence == null) {
+        alert('Mohon masukan lisensi')
+        router.push({ path: '/permission/lisensi' })
+      }
+      const data = response.data.licence
+      axios.get('https://lisensi.kawanmama.com/api/checking?licence=' + data.licence + '&product_code=' + data.code).then(response => {
+        if (response.status == 401) {
+          axios.delete('/licence/delete')
+        }
+      })
+    }).catch(err => {
+      if (!err.response.data.success) {
+        alert('Maaf product mu sudah expired')
+        router.push({ path: '/permission/lisensi' })
+      } else {
+        console.log('berhasil')
+      }
+    })
+  },
   // remove token
   resetToken({ commit }) {
     return new Promise(resolve => {
