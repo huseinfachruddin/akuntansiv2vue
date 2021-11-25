@@ -6,7 +6,7 @@
       {{ $company.company }}
     </h3>
     <p style="text-align:center">
-      Margosari Patebon Kendal 081326260999 / 08112799958
+      {{ $company.address }}
     </p>
     <b><hr></b>
     <div style="display: inline-block; float:left;">
@@ -80,7 +80,7 @@ TGL Transaksi : {{ list_pay['date'] }}
 
 	(	  			  )
 
-	       PERW.CV.PUTRA QIRANA
+	       {{ $company.company }}
 	</pre>
     </div>
     <div style="display: inline-block; margin-left:10px; float:right; border: 0px solid; width:40%">

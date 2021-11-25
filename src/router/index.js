@@ -586,7 +586,7 @@ import axios from 'axios'
     hidden: false, // will always show the root menu
     name: 'Permission',
     meta: {
-      title: 'Permission',
+      title: 'Setting',
       icon: 'lock',
       roles: ['admin'] // you can set roles in root nav
   },
