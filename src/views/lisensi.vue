@@ -150,6 +150,7 @@ export default {
         console.log(response)
         axios.post(`/licence/create`, data).then(response => {
           console.log('berhasil')
+          this.getList()
         }).catch(err => {
           if (!err.response.data.success) {
             this.$notify({
