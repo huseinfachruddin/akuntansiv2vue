@@ -166,7 +166,7 @@ export default {
         })
       }).catch(err => {
         if (!err.response.data.success) {
-          alert('maaf product mu sudah expired')
+          alert('Lisensi ini sudah diaktivasi dengan domain lain.')
         } else {
           console.log('berhasil')
           this.$notify({

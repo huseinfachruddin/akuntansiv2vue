@@ -118,22 +118,24 @@ const actions = {
   isLicenceActived({ commit, state, dispatch }) {
     axios.get(`/licence`).then(response => {
       if (response.data.licence == null) {
-        alert('Mohon masukan lisensi')
+        alert('Masukan Lisensi')
         router.push({ path: '/permission/lisensi' })
       }
       const data = response.data.licence
       axios.get('https://lisensi.kawanmama.com/api/checking?licence=' + data.licence + '&product_code=' + data.code).then(response => {
         if (response.status == 401) {
           axios.delete('/licence/delete')
+          alert('Lisensi Kadaluarsa')
           router.push({ path: '/permission/lisensi' })
         }
       }).catch(err=>{
         axios.delete('/licence/delete')
+        alert('Lisensi Kadaluarsa')
         router.push({ path: '/permission/lisensi' })
       })
     }).catch(err => {
       if (!err.response.data.success) {
-        alert('Maaf product mu sudah expired')
+        alert('Lisensi Kadaluarsa')
         router.push({ path: '/permission/lisensi' })
       } else {
         console.log('berhasil')
