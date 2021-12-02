@@ -122,7 +122,7 @@ const actions = {
         router.push({ path: '/permission/lisensi' })
       }
       const data = response.data.licence
-      axios.get('https://lisensi.kawanmama.com/api/checking?licence=' + data.licence + '&product_code=' + data.code+'&domain='+window.location.hostname).then(response => {
+      axios.get('https://lisensi.kawanmama.com/api/checking?licence=' + data.licence + '&product_code=' + data.code + '&domain=' + window.location.hostname).then(response => {
         if (response.status == 401) {
           axios.delete('/licence/delete')
           alert('Lisensi Kadaluarsa')
