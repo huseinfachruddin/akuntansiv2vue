@@ -146,7 +146,7 @@ export default {
         company: this.company,
         address: this.address
       }
-      await axios.get(`https://lisensi.kawanmama.com/api/setting?product_code=${data.product_code}&licence=${data.licence}&domain=${window.location.hostname}`).then(response => {
+      await axios.get(`https://lisensi.ruasdigital.id/api/setting?product_code=${data.product_code}&licence=${data.licence}&domain=${window.location.hostname}`).then(response => {
         console.log(response)
         axios.post(`/licence/create`, data).then(response => {
           console.log('berhasil')
