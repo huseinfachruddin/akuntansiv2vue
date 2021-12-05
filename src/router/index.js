@@ -603,7 +603,16 @@ export const asyncRoutes = [
         roles: ['admin']
       }
     },
-
+    {
+      path: 'reset',
+      component: () => import('@/views/reset'),
+      name: 'reset',
+      hidden: false,
+      meta: {
+        title: 'Reset Database',
+        roles: ['admin']
+      }
+    },
     {
       path: 'user',
       component: () => import('@/views/user'),
@@ -612,7 +621,7 @@ export const asyncRoutes = [
         title: 'User Manager',
         roles: ['admin']
       }
-    }
+    },
     ]
   },
 

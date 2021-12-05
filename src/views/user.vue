@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="app-container">
     <el-table
@@ -188,7 +186,7 @@ export default {
       this.listLoading = true
       axios.get('/user').then(response => {
         console.log(response)
-        this.list = response.data.user.filter(val => val.email != 'admin@admin.com')
+        this.list = response.data.user
         this.total = response.data.user.length
           this.listLoading = false
       })
@@ -197,7 +195,6 @@ export default {
         this.role_akun = response.data.role
       })
     },
-
     handleCurrency(number){
      const idr = new Intl.NumberFormat('in-IN', { style: 'currency', currency: 'IDR' }).format(number)
      return idr
