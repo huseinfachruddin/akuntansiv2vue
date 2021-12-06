@@ -16,6 +16,7 @@ import axios from '@/api/axios'
 import qs from 'qs'
 import checkPermission from '@/utils/permission' // 权限判断函数
 import { mapGetters } from 'vuex'
+import Cookies from 'js-cookie'
 
 export default {
   name: 'ComplexTable',
@@ -118,7 +119,7 @@ export default {
     reset() {
       try {
         if (confirm('Yakin Akan mereset data?')) {
-          const res = axios.get('/clean',{headers: {'Authorization': 'Bearer '+Cookies.get('Admin-Token')}})
+          const res = axios.get('/clean', { headers: { 'Authorization': 'Bearer ' + Cookies.get('Admin-Token') }})
           this.loading = false
           console.log(res)
           alert('data berhasil direset')
