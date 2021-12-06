@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
-    <h3>Reset Semua data data !!</h3>
-    <h5>semua database akan dihapus kecuali data user...</h5>
-          <el-button :loading="loading" type="danger" size="mini" @click="reset()">
-            Reset database
-          </el-button> </div>
+    <el-button :loading="loading" type="danger" size="mini" @click="reset()">
+      Reset Data Transaksi
+    </el-button>
+    <h5>Dengan menekan tombol Reset Data Transaksi di atas seluruh data Anda akan hilang dan tidak dapat dikembalikan. Lakukan ini dengan bijak.</h5>
+  </div>
 </template>
 
 <script>
@@ -39,37 +39,37 @@ export default {
       'name',
       'avatar',
       'roles'
-      ])
+    ])
   },
   data() {
     return {
-      start : '',
-      dates : '',
-      end : '',
-      search : '',
-      loading : false,
+      start: '',
+      dates: '',
+      end: '',
+      search: '',
+      loading: false,
       config: {
         spinner: false,
         step: 10,
-        prefix: "Rp ",
+        prefix: 'Rp ',
         precision: 0,
         decimal: ',',
         thousands: '.',
         bootstrap: true,
         amend: false,
         masked: false,
-        allowBlank : true
+        allowBlank: true
       },
       from: '',
       to_item: '',
       total_kasIn: '',
-      pengeluaran : '',
-      keterangan : '',
+      pengeluaran: '',
+      keterangan: '',
       kasIn: {
         all: [{ biaya: '', total: [], desc: '' }]
       },
       tableKey: 0,
-      iscashout : '',
+      iscashout: '',
       list: null,
       total: 0,
       listLoading: true,
@@ -115,22 +115,20 @@ export default {
     }
   },
   methods: {
-    reset(){
+    reset() {
       try {
         if (confirm('Yakin Akan mereset data?')) {
-          let res = axios.get('/clean')
-          this.loading=false
+          const res = axios.get('/clean',{headers: {'Authorization': 'Bearer '+Cookies.get('Admin-Token')}})
+          this.loading = false
           console.log(res)
           alert('data berhasil direset')
         }
       } catch (error) {
         console.log(error)
-        this.loading=false
+        this.loading = false
       }
     }
-  }, 
+  }
 
-
-  
 }
 </script>

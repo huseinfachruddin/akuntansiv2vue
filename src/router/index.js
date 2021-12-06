@@ -609,7 +609,7 @@ export const asyncRoutes = [
       name: 'reset',
       hidden: false,
       meta: {
-        title: 'Reset Database',
+        title: 'Reset Data Transaksi',
         roles: ['admin']
       }
     },
@@ -621,7 +621,7 @@ export const asyncRoutes = [
         title: 'User Manager',
         roles: ['admin']
       }
-    },
+    }
     ]
   },
 
