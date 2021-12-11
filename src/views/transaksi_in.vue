@@ -138,6 +138,7 @@ import qs from 'qs'
 import {
     mapGetters
 } from 'vuex'
+import Cookies from 'js-cookie'
 
 const calendarTypeOptions = [{
         key: 'cash',
@@ -298,22 +299,13 @@ export default {
                     this.listLoading = false
                 }, 1.5 * 1000)
             })
-            axios.get(`/akun/iscash`).then(response => {
-                console.log(response)
-                this.cash = response.data.akun
-            }).catch(() => {
-                this.listLoading = false
-                this.$notify({
-                    title: 'Error',
-                    message: 'Server Error',
-                    type: 'warning',
-                    duration: 2000
-                })
+            axios.get(`/cashuser?in=`+true,{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}}).then(response => {
+                this.cash=response.data.cashuser
             })
 
             axios.get(`/akun/iscashin`).then(response => {
                     console.log(response)
-                    this.modal = response.data.akun.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+                    
                 })
                 .catch(() => {
                     this.listLoading = false

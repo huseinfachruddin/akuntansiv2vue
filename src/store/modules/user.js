@@ -142,6 +142,7 @@ const actions = {
       }
     })
   },
+
   // remove token
   resetToken({ commit }) {
     return new Promise(resolve => {
@@ -158,7 +159,6 @@ const actions = {
 
     commit('SET_TOKEN', token)
     setToken(token)
-
     const { roles } = await dispatch('getInfo')
 
     resetRouter()

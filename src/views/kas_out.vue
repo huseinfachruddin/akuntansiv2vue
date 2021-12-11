@@ -139,6 +139,7 @@ import checkPermission from '@/utils/permission' // 权限判断函数
 import {
     mapGetters
 } from 'vuex'
+import Cookies from 'js-cookie'
 
 const calendarTypeOptions = [{
         key: 'cash',
@@ -299,13 +300,8 @@ export default {
                     this.listLoading = false
                 }, 1.5 * 1000)
             })
-            axios.get(`/akun/iscash`).then(response => {
-                console.log(response)
-                if (this.roles == 'kasir') {
-                    this.cash = response.data.akun.filter((val) => val.name == 'Kas Kecil')
-                } else {
-                    this.cash = response.data.akun
-                }
+            axios.get(`/cashuser?out=`+true,{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}}).then(response => {
+                this.cash=response.data.cashuser
             })
 
             if (this.roles == 'admin') {

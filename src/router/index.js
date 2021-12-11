@@ -264,10 +264,19 @@ export const asyncRoutes = [
       },
       {
         path: '/transfer/kas',
-        component: () => import('@/views/transfer_in'),
+        component: () => import('@/views/seting_kas'),
         name: 'RolePermission',
         meta: {
           title: 'Transfer Kas',
+          roles: ['admin']
+        }
+      },
+      {
+        path: '/transfer/seting',
+        component: () => import('@/views/seting_kas'),
+        name: 'RolePermission',
+        meta: {
+          title: 'Seting Kas',
           roles: ['admin', 'kasir']
         }
       }

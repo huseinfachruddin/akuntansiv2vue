@@ -25,12 +25,12 @@
         <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 400px; margin-left:50px;">
             <el-form-item label="Kategori" props="category">
                 <el-select v-model="category" required class="filter-item" placeholder="Please select" @change="onChangeModal($event)">
-                    <el-option label="Kosong" value="" />
-                    <el-option v-for="item in categories" :key="item.id" :label="item.name" :value="item.id" />
+                    <el-option label="Kosong" value=""/>
+                    <el-option v-for="item in categories" :key="item.id" :label="item.name" :value="item.id"/>
                 </el-select>
             </el-form-item>
             <el-form-item label="Nama">
-                <el-input placeholder="Nama" v-model="name" />
+                <el-input placeholder="Nama" v-model="name"/>
             </el-form-item>
             <el-form-item v-if="kas != true && isCashOut != true && isCashIn != true">
                 <el-checkbox v-model="header">Header</el-checkbox>
@@ -54,7 +54,6 @@
             </el-button>
         </div>
     </el-dialog>
-
     <el-dialog :visible.sync="dialogPvVisible" title="Reading statistics">
         <el-table :data="pvData" border fit highlight-current-row style="width: 100%">
             <el-table-column prop="key" label="Channel" />
@@ -120,7 +119,6 @@ export default {
                 children: 'children',
                 label: 'name'
             },
-
             id: '',
             category: '',
             isCashOut: '',
@@ -205,7 +203,6 @@ export default {
     },
 
     methods: {
-
         load(tree, treeNode, resolve) {
             setTimeout(() => {
                 resolve(this.list)
