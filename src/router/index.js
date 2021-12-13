@@ -268,7 +268,7 @@ export const asyncRoutes = [
         name: 'RolePermission',
         meta: {
           title: 'Transfer Kas',
-          roles: ['admin']
+          roles: ['admin','kasir']
         }
       },
       {

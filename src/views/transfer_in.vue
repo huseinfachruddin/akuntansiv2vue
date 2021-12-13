@@ -141,6 +141,7 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import axios from '@/api/axios'
 import qs from 'qs'
 import { mapGetters } from 'vuex'
+import Cookies from 'js-cookie'
 
 
 const calendarTypeOptions = [
@@ -279,18 +280,11 @@ export default {
 
     this.dates = `${YYYY}-${MM}-${DD}`
       this.listLoading = true
-      axios.get('/cash/transfer').then(response => {
-        console.log(response)
-        this.list = response.data.cashtransaction.filter(val=> {
-          if(val.from.name == 'Kas Kecil' || val.from.name == 'Kas Besar' || val.to.name == 'Kas Kecil' || val.to.name == 'Kas Besar' && this.roles == 'kasir'){
-            return val
-          } else {
-            if(this.roles == 'admin'){
-
-              return val
-            }
-          }
-        }).sort((a,b) => (a.id < b.id) ? 1 : ((b.id < a.id) ? -1 : 0))
+      axios.get('/cash/transfer').then(async response => {
+        let res =await axios.get('/cashuser',{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}})
+        let data = res.data.cashuser
+        this.list = response.data.cashtransaction.filter(x=>data.find(({name})=>name==x.from.name)||data.find(({name})=>name==x.to.name))
+        console.log(this.list,'hassdf')        
         this.total = response.data.cashtransaction.length
 
         // Just to simulate the time of the request

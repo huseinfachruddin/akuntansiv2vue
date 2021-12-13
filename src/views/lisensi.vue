@@ -7,9 +7,10 @@
       <el-button v-if="list.length == 0" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
         Input Kode Lisensi
       </el-button>
-
+        <br>
+    <el-button type="primary" plain size="mini" round href="https://produk.ruasdigital.id/" target="_blank">kode lisensi dapat ditemukan di sini</el-button>
     </div>
-    <a href="https://produk.ruasdigital.id/" target="_blank"><i>kode lisensi dapat ditemukan di sini</i></a>
+    <br>
     <el-table
       v-loading="listLoading"
       :data="list"
