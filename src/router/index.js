@@ -264,7 +264,7 @@ export const asyncRoutes = [
       },
       {
         path: '/transfer/kas',
-        component: () => import('@/views/seting_kas'),
+        component: () => import('@/views/transfer_in'),
         name: 'RolePermission',
         meta: {
           title: 'Transfer Kas',
@@ -272,12 +272,12 @@ export const asyncRoutes = [
         }
       },
       {
-        path: '/transfer/seting',
-        component: () => import('@/views/seting_kas'),
+        path: '/kas/setting',
+        component: () => import('@/views/setting_kas'),
         name: 'RolePermission',
         meta: {
           title: 'Seting Kas',
-          roles: ['admin', 'kasir']
+          roles: ['admin']
         }
       }
     ]
@@ -613,6 +613,15 @@ export const asyncRoutes = [
       }
     },
     {
+      path: 'user',
+      component: () => import('@/views/user'),
+      name: 'RolePermission',
+      meta: {
+        title: 'User Manager',
+        roles: ['admin']
+      }
+    },
+    {
       path: 'reset',
       component: () => import('@/views/reset'),
       name: 'reset',
@@ -622,15 +631,6 @@ export const asyncRoutes = [
         roles: ['admin']
       }
     },
-    {
-      path: 'user',
-      component: () => import('@/views/user'),
-      name: 'RolePermission',
-      meta: {
-        title: 'User Manager',
-        roles: ['admin']
-      }
-    }
     ]
   },
 

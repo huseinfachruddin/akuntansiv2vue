@@ -5,10 +5,11 @@
     <div class="filter-container">
 
       <el-button v-if="list.length == 0" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
-        Tambah
+        Input Kode Lisensi
       </el-button>
 
     </div>
+    <a href="https://produk.ruasdigital.id/" target="_blank"><i>kode lisensi dapat ditemukan di sini</i></a>
     <el-table
       v-loading="listLoading"
       :data="list"

@@ -28,19 +28,19 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Lisensi">
+      <el-table-column label="Nama Kas">
         <template slot-scope="{row}">
           <span>{{ row.name }} </span>
         </template>
       </el-table-column>
-      <el-table-column label="Sebagai kas masuk">
+      <el-table-column label="Sebagai Kas Masuk">
         <template slot-scope="{row}">
-          <span>{{ row.iscashin }}</span>
+          <span>{{ row.iscashin ==1 ? 'iya' : 'tidak' }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Sebagai kas keluar">
+      <el-table-column label="Sebagai Kas Keluar">
         <template slot-scope="{row}">
-          <span>{{ row.iscashout }}</span>
+          <span>{{ row.iscashout ==1 ? 'iya' : 'tidak'}}</span>
         </template>
       </el-table-column>    
       <el-table-column label="Role">

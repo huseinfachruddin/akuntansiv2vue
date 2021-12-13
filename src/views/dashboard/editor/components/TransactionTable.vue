@@ -51,6 +51,8 @@
 <script>
 import { transactionList } from '@/api/remote-search'
 import axios from '@/api/axios'
+import Cookies from 'js-cookie'
+
 export default {
   filters: {
     statusFilter(status) {
@@ -93,8 +95,13 @@ export default {
         });
 
       axios.get('/report/neraca/kas dan bank').then(response => {
-        this.list = response.data.akun[0]['children'].filter((val) => val.name == 'Kas Besar'|| val.name == 'Kas Kecil')
-        console.log(response)
+        const data = response.data.akun[0].children
+      axios.get(`/cashuser?out=`+true,{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}}).then(res => {
+
+                let hasil = res.data.cashuser.map(x=>data.find(({name})=>name==x.name))
+                this.list = hasil
+
+      })
 
         // Just to simulate the time of the request
         const total = this.list.reduce(function(accumulator, currentValue) {
