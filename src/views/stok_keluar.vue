@@ -629,7 +629,7 @@ export default {
 
             const data = {
                 contact_id: this.contact_id,
-                cashin_id: this.cashout_id == '' ? '68' : this.cashout_id,
+                cashin_id: this.cashout_id == '' ? this.kas[0].id : this.cashout_id,
                 product_id,
                 qty,
                 selling_price,

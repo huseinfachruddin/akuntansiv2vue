@@ -4,7 +4,7 @@
      <div class="filter-container">
       <el-input v-model="search" placeholder="Cari" style="width: 200px;margin-right: 10px;" class="filter-item" />
 
-        <el-button v-if="roles == 'admin'" class="filter-item" style="" type="primary" icon="el-icon-edit" @click="handleCreate">
+        <el-button v-if="roles == 'admin' || roles == 'finance'" class="filter-item" style="" type="primary" icon="el-icon-edit" @click="handleCreate">
             Tambah
         </el-button>
         <el-button v-waves style="margin-right:20px; " :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
@@ -67,7 +67,7 @@
       </el-table-column>
 
       </el-table-column>
-      <el-table-column v-if="roles == 'admin'" label="Actions" align="center" width="230" class-name="small-padding fixed-width">
+      <el-table-column v-if="roles == 'admin'|| roles == 'finance'" label="Actions" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
           <el-button :loading="loading" type="danger" size="mini" @click="handleDelete(row, $index)">
             Delete
