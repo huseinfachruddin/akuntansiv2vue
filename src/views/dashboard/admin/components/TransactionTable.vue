@@ -93,21 +93,15 @@ export default {
         this.list_piutang = data.slice(0,4)
         });
       axios.get('/report/neraca/kas dan bank').then(response => {
-        const data = response.data.akun[0].children
+      const data = response.data.akun[0].children
       axios.get(`/cashuser`,{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}}).then(res => {
-
                 let hasil = res.data.cashuser.map(x=>data.find(({name})=>name==x.name))
                 this.list = hasil
-
       })
-
         // Just to simulate the time of the request
         const total = response.data.akun.reduce(function(accumulator, currentValue) {
           return accumulator + currentValue.total;
         }, 0);
-
-
-        
         this.total = total
 
       })

@@ -313,9 +313,7 @@ export default {
                 axios.get('/report/Biaya').then((response) => {
                     console.log(response)
                     const biaya = []
-
                     function pecahFee(val) {
-
                         val.filter(values => {
                             if (values.children) {
                                 if (values.iscashout == 1 && values.isheader == 0) {

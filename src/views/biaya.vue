@@ -145,6 +145,7 @@ import axios from '@/api/axios'
 import qs from 'qs'
 import checkPermission from '@/utils/permission' // 权限判断函数
 import { mapGetters } from 'vuex'
+import Cookies from 'js-cookie'
 
 
 const calendarTypeOptions = [
@@ -289,7 +290,7 @@ export default {
       axios.get('/cash/out').then(response => {
         console.log(response)
         this.list = response.data.cashtransaction.filter((val) => {
-          if(val.from.name == 'Kas Kecil' && this.roles == 'kasir'){
+          if(this.roles == 'kasir'){
             return val
           } else {
             return val
@@ -302,22 +303,14 @@ export default {
           this.listLoading = false
         }, 1.5 * 1000)
       })
-      axios.get(`/akun/iscash`).then(response => {
-        console.log(response)
-        if(this.roles == 'kasir'){          
-          this.cash = response.data.akun.filter((val) => val.name == 'Kas Kecil')
-        } else {
-          this.cash = response.data.akun 
-        }
-      })  
-
-
+            axios.get(`/cashuser?out=`+true,{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}}).then(response => {
+                this.cash=response.data.cashuser
+            }) 
        axios.get('/report/Biaya').then((response) =>
         {
           console.log(response)
             const biaya = []
             function pecahFee(val){
-              
               val.filter(values => {
                 if(values.children) {
                   if(values.isheader == 0){
@@ -474,9 +467,7 @@ export default {
       })
     },
     handleDelete(row, index) {
-
       this.listLoading = true
-
       this.$confirm('Apakah anda serius mau menghapus ?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',

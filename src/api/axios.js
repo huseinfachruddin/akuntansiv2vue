@@ -4,7 +4,6 @@ var parts = location.hostname.split('.');
 // var subdomain = parts.shift();
 var upperleveldomain = parts.join('.');
 export default axios.create({
-  baseURL: window.location.origin+'/public/api'
-  // baseURL: 'https://1571156cb4fc.ngrok.io'
-   // baseURL: 'https://akutansi456.herokuapp.com/api'
+  // baseURL: window.location.origin+'/public/api'
+   baseURL: 'http://127.0.0.1:8000/api'
 })
