@@ -3,7 +3,7 @@
     <div class="filter-container">
         <el-input v-model="search" placeholder="Cari" style="width: 200px;margin-right: 10px;" class="filter-item" />
 
-        <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="handleCreate">
+        <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="handleCreate,row=''">
             Tambah
         </el-button>
         <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
@@ -348,6 +348,10 @@ export default {
 
                     this.getList()
                     this.dialogFormVisible = false
+                        this.name =''
+                        this.maxdebt =''
+                        this.category =''
+                        this.max_paydue=''
                     this.$notify({
                         title: 'Success',
                         message: 'Created Successfully',
@@ -398,6 +402,10 @@ export default {
                     this.loading = false
 
                     this.getList()
+                    this.name = ""
+                    this.maxdebt = ''
+                    this.category = ''
+                    this.max_paydue = ''
                     this.dialogFormVisible = false
                     this.$notify({
                         title: 'Success',

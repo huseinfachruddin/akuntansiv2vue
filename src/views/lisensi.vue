@@ -8,7 +8,8 @@
         Input Kode Lisensi
       </el-button>
         <br>
-    <el-button type="primary" plain size="mini" round href="https://produk.ruasdigital.id/" target="_blank">kode lisensi dapat ditemukan di sini</el-button>
+          <a style="color:blue;" href="https://produk.ruasdigital.id" target="_blank">kode lisensi dapat ditemukan di sini</a>
+        <br>
     </div>
     <br>
     <el-table
