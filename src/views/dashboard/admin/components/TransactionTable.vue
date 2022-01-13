@@ -94,7 +94,7 @@ export default {
         });
       axios.get('/report/neraca/kas dan bank').then(response => {
         const data = response.data.akun[0].children
-      axios.get(`/cashuser?out=`+true,{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}}).then(res => {
+      axios.get(`/cashuser`,{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}}).then(res => {
 
                 let hasil = res.data.cashuser.map(x=>data.find(({name})=>name==x.name))
                 this.list = hasil
