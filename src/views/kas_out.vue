@@ -300,17 +300,20 @@ export default {
                     this.listLoading = false
                 }, 1.5 * 1000)
             })
-            axios.get(`/cashuser?out=`+true,{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}}).then(response => {
-                this.cash=response.data.cashuser
-            })
 
             if (this.roles == 'admin') {
                 axios.get('/akun/iscashout').then(response => {
+                    axios.get(`/cashuser?out=`+true,{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}}).then(response => {
+                        this.cash=response.data.cashuser
+                    })
                     console.log(response)
                     this.iscashout = response.data.akun.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
                 });
             } else {
                 axios.get('/report/Biaya').then((response) => {
+                    axios.get(`/cashuser?out=`+true,{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}}).then(response => {
+                        this.cash=response.data.cashuser
+                    })
                     console.log(response)
                     const biaya = []
                     function pecahFee(val) {
@@ -323,7 +326,7 @@ export default {
                             } else {
                                 return false
                             }
-                        })
+                        })  
 
                     }
 

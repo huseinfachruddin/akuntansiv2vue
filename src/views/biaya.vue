@@ -303,11 +303,11 @@ export default {
           this.listLoading = false
         }, 1.5 * 1000)
       })
-            axios.get(`/cashuser?out=`+true,{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}}).then(response => {
-                this.cash=response.data.cashuser
-            }) 
-       axios.get('/report/Biaya').then((response) =>
+       axios.get('/report/Biaya').then(async (response) =>
         {
+          await axios.get(`/cashuser?out=`+true,{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}}).then(res => {
+              this.cash=res.data.cashuser
+          }) 
           console.log(response)
             const biaya = []
             function pecahFee(val){
