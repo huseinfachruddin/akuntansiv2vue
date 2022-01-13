@@ -184,7 +184,7 @@ export const asyncRoutes = [
       meta: {
         title: 'Biaya',
         icon: 'money',
-        roles: ['admin', 'kasir','finance','umum']
+        roles: ['admin','finance','umum']
       }
     }]
   },
@@ -195,7 +195,7 @@ export const asyncRoutes = [
     meta: {
       title: 'Kas',
       icon: 'bug',
-      roles: ['admin', 'kasir','finance'] // you can set roles in root nav
+      roles: ['admin', 'kasir','finance','purchasing','umum'] // you can set roles in root nav
     },
     children: [
 
@@ -290,7 +290,7 @@ export const asyncRoutes = [
     meta: {
       title: 'Kontak',
       icon: 'example',
-      roles: ['admin', 'kasir','finance'] // you can set roles in root nav
+      roles: ['admin', 'kasir','finance','purchasing'] // you can set roles in root nav
     },
     children: [{
       path: '/kontak',
@@ -298,7 +298,7 @@ export const asyncRoutes = [
       name: 'PagePermission',
       meta: {
         title: 'Kontak',
-        roles: ['admin', 'kasir','finance'] // or you can only set roles in sub nav
+        roles: ['admin', 'kasir','finance','purchasing'] // or you can only set roles in sub nav
       }
     },
     {
