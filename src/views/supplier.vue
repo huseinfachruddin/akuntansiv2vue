@@ -3,7 +3,7 @@
     <div class="filter-container">
         <el-input v-model="search" placeholder="Cari" style="width: 200px;margin-right: 10px;" class="filter-item" />
 
-        <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="handleCreate,row=''">
+        <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="handleCreate">
             Tambah
         </el-button>
         <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
@@ -312,6 +312,11 @@ export default {
             this.$nextTick(() => {
                 this.$refs['dataForm'].clearValidate()
             })
+                this.name = ""
+                this.address=""
+                this.desc =""
+                this.contact= ""
+                this.tipe =""
         },
         createData() {
             // this.$refs['dataForm'].validate((valid) => {
