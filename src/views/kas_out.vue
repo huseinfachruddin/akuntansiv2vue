@@ -310,30 +310,31 @@ export default {
                     this.iscashout = response.data.akun.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
                 });
             } else {
-                axios.get('/report/Biaya').then(async (response) => {
-                    await axios.get(`/cashuser?out=`+true,{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}}).then(response => {
-                        this.cash=response.data.cashuser
-                    })
+                axios.get('/report/Biaya').then(async (response) =>
+                    {
+                    await axios.get(`/cashuser?out=`+true,{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}}).then(res => {
+                        this.cash=res.data.cashuser
+                    }) 
                     console.log(response)
-                    const biaya = []
-                    function pecahFee(val) {
+                        const biaya = []
+                        function pecahFee(val){
                         val.filter(values => {
-                            if (values.children) {
-                                if (values.iscashout == 1 && values.isheader == 0) {
-                                    biaya.push(values)
-                                }
-                                pecahFee(values.children)
-                            } else {
-                                return false
+                            if(values.children) {
+                            if(values.isheader == 0){
+                                biaya.push(values)
                             }
-                        })  
+                            pecahFee(values.children)
+                            } else {
+                            return false
+                            }
+                        })
 
-                    }
+                        }
 
-                    console.log(pecahFee(response.data.akun))
-                    this.iscashout = biaya.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+                        console.log(pecahFee(response.data.akun))
+                    this.iscashout = biaya.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)) 
 
-                });
+                    });
             }
 
         },
