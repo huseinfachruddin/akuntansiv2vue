@@ -454,7 +454,7 @@ export const asyncRoutes = [
     meta: {
       title: 'Laporan',
       icon: 'excel',
-      roles: ['admin','finance'] // you can set roles in root nav
+      roles: ['admin','finance','kasir'] // you can set roles in root nav
     },
     children: [{
       path: '/neraca',
