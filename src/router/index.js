@@ -509,7 +509,7 @@ export const asyncRoutes = [
       name: 'PagePermission',
       meta: {
         title: 'Laporan Penjualan',
-        roles: ['admin','finance'] // or you can only set roles in sub nav
+        roles: ['admin','finance','kasir'] // or you can only set roles in sub nav
       }
     }
     ]

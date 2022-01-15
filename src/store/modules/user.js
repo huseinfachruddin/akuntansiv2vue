@@ -123,19 +123,30 @@ const actions = {
       }
       const data = response.data.licence
       axios.get('https://lisensi.ruasdigital.id/api/checking?licence=' + data.licence + '&product_code=' + data.code + '&domain=' + window.location.hostname).then(response => {
-        if (response.status == 401) {
+        if (response.status == 500 || response.status == 502) {
+          console.log(response)
+        }else if
+         (response.status == 401) {
           axios.delete('/licence/delete')
-          alert('Lisensi Kadaluarsa')
+          alert('Ada kesalahan dalam lisensi')
           router.push({ path: '/permission/lisensi' })
         }
       }).catch(err => {
-        axios.delete('/licence/delete')
-        alert('Lisensi Kadaluarsa')
-        router.push({ path: '/permission/lisensi' })
+        if (err.response.status == 500 || err.response.status == 502) {
+          console.log(err)
+        }
+        else if (err.response.status == 401) {
+          axios.delete('/licence/delete')
+          alert('Ada kesalahan dalam lisensi')
+          router.push({ path: '/permission/lisensi' })
+        } 
+        // axios.delete('/licence/delete')
+        // alert('Ada kesalahan dalam lisensi')
+        // router.push({ path: '/permission/lisensi' })
       })
     }).catch(err => {
       if (!err.response.data.success) {
-        alert('Lisensi Kadaluarsa')
+        alert('Ada kesalahan dalam lisensi')
         router.push({ path: '/permission/lisensi' })
       } else {
         console.log('berhasil')
