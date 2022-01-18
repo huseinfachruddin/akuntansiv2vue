@@ -122,7 +122,7 @@ const actions = {
         router.push({ path: '/permission/lisensi' })
       }
       const data = response.data.licence
-      axios.get('https://lisensi.ruasdigital.id/api/checking?licence=' + data.licence + '&product_code=' + data.code + '&domain=' + window.location.hostname).then(response => {
+      axios.get('https://lisensi.ruasdigital.id/api/checking?licence=' + data.licence + '&product_code=' + data.code + '&domain=' + window.location.origin).then(response => {
         if (response.status == 500 || response.status == 502) {
           console.log(response)
         }else if

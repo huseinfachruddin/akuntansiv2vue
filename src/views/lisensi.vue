@@ -149,10 +149,10 @@ export default {
         company: this.company,
         address: this.address
       }
-      await axios.get(`https://lisensi.ruasdigital.id/api/setting?product_code=${data.product_code}&licence=${data.licence}&domain=${window.location.hostname}`).then(response => {
+      await axios.get(`https://lisensi.ruasdigital.id/api/setting?product_code=${data.product_code}&licence=${data.licence}&domain=${window.location.origin}`).then(response => {
         console.log(response)
         axios.post(`/licence/create`, data).then(response => {
-          console.log('berhasil')
+          console.log(['berhasil',response])
           this.getList()
         }).catch(err => {
           if (!err.response.data.success) {
