@@ -133,7 +133,7 @@
             </div>
 
             <el-form-item class="k" label="Bayar Dengan">
-                <el-select v-model="cashout_id" required class="filter-item" placeholder="Please select" @change="onChangeModal($event)">
+                <el-select v-model="cashin_id" required class="filter-item" placeholder="Please select" @change="onChangeModal($event)">
                     <el-option v-for="item in kas" :key="item.id" :label="item.name" :value="item.id" />
                 </el-select>
             </el-form-item>
@@ -256,7 +256,7 @@ export default {
             search: '',
             product: [],
             contact_id: "",
-            cashout_id: "",
+            cashin_id: "",
             satuan: '',
             producttype: '',
             jenis_barang: '',
@@ -418,7 +418,7 @@ export default {
                 }, 1.5 * 1000)
             })
 
-            axios.get(`/cashuser?out=`+true,{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}}).then(response => {
+            axios.get(`/cashuser?in=`+true,{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}}).then(response => {
                 this.kas=response.data.cashuser
             })
 
@@ -579,7 +579,7 @@ export default {
             }
             const data = {
                 contact_id: this.contact_id,
-                cashout_id: this.cashout_id,
+                cashin_id: this.cashin_id,
                 product_id,
                 qty,
                 total,

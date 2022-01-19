@@ -184,7 +184,7 @@ export const asyncRoutes = [
     },
     children: [{
       path: '/pembelian/return',
-      component: () => import('@/views/stok_masuk'),
+      component: () => import('@/views/return_out'),
       name: 'return_out',
       meta: {
         icon: '',

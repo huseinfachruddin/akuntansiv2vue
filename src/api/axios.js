@@ -5,5 +5,6 @@ var parts = location.hostname.split('.');
 var upperleveldomain = parts.join('.');
 export default axios.create({
   // baseURL: window.location.origin+'/public/api'
-   baseURL: 'http://127.0.0.1:8000/api'
+   // baseURL: 'http://127.0.0.1:8000/api'
+   baseURL: 'https://akuntansi.ruasdigital.id/public/api'
 })
