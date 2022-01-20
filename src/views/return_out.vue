@@ -81,7 +81,7 @@
         </el-table-column>
          <el-table-column label="Kas" width="150px" align="center">
             <template slot-scope="{row}">
-                <span>{{ row.cashout.name }}</span>
+                <span>{{ row.cashin.name }}</span>
             </template>
         </el-table-column>
     </el-table>
@@ -595,7 +595,7 @@ export default {
                     allowDots: true
                 }
             )
-            axios.post('/return/in/create', encodedValues)
+            axios.post('/return/out/create', encodedValues)
                 .then((response) => {
                     this.loading = false
 
