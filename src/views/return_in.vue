@@ -119,6 +119,9 @@
                 <el-form-item class="k" :label="index == 0 ? 'Jumlah Barang' : ''">
                     <el-input v-model="all.qty" :value="all.qty" required type="text" placeholder="Jumlah Barang" @change="onChangeQty(index)" />
                 </el-form-item>
+                <el-form-item class="k" :label="index == 0 ? 'Harga Jual' : ''">
+                    <v-money-spinner v-bind="config" v-model="all.harga_jual" required type="text" placeholder="Rp 0" @change="onChangeQty(index)"></v-money-spinner>
+                </el-form-item>
                 <el-form-item class="k" :label="index == 0 ? 'Harga Satuan' : ''">
                     <v-money-spinner v-bind="config" v-model="all.harga" required type="text" placeholder="Rp 0" @change="onChangeQty(index)"></v-money-spinner>
                 </el-form-item>
@@ -287,7 +290,8 @@ export default {
                     product_id: '',
                     total: [],
                     qty: [],
-                    harga: []
+                    harga: [],
+                    harga_jual:[]
                 }]
             },
             tableKey: 0,
@@ -517,10 +521,12 @@ export default {
             const qty = []
             const product_id = []
             const purchase_price = []
+            const selling_price = []
             this.kasIn.all.map((val, index) => {
                 qty.push(val.qty)
                 total.push(parseInt(val.total))
                 purchase_price.push(parseInt(val.harga))
+                selling_price.push(parseInt(val.harga_jual))
                 product_id.push(val.product_id)
             })
                 console.log(product_id)
@@ -583,8 +589,9 @@ export default {
                 product_id,
                 qty,
                 total,
+                selling_price,
                 payment_due: this.jatuh_tempo,
-                paid : this.jumlah_bayar,
+                paid : paid.length == 0 ? 0 : paid,
                 purchase_price,
                 date: this.dates,
                 staff: this.name
@@ -818,7 +825,8 @@ export default {
             })
             this.kasIn.all[index]['qty'] = produk[0]['qty'];
             this.kasIn.all[index]['harga'] = produk[0]['purchase_price']
-            this.kasIn.all[index]['total'] =  produk[0]['qty'] * produk[0]['purchase_price'];
+            this.kasIn.all[index]['harga_jual'] = produk[0]['selling_price']
+            this.kasIn.all[index]['total'] =  produk[0]['qty'] * produk[0]['selling_price'];
             // parseInt(produk[0]['purchase_price']) > 0 && parseInt(produk[0]['qty']) > 0 ? parseInt(produk[0]['purchase_price']) *  parseInt(produk[0]['qty']) : 0
         },
 

@@ -90,7 +90,7 @@
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
         <el-form label-position="top" :inline="true" ref="dataForm" :rules="rules" :model="temp" label-width="180px" style="width: 100%; margin-left:50px;">
-            <el-form-item class="k" label="Pilih Data Penjualan" v-if="dialogStatus == 'create'">
+            <el-form-item class="k" label="Pilih Data Pembelian" v-if="dialogStatus == 'create'">
                 <el-select filterable v-model="stockout_id" required class="filter-item" placeholder="Please select" @change="stocktransactionDetail()">
                     <el-option v-for="item in data_stockout" :key="item.id" :label="item.id" :value="item.id" />
                 </el-select>
@@ -367,7 +367,7 @@ export default {
         checkPermission,
 
         getStockOut(){
-            axios.get('/stock/out').then(res=>console.log(this.data_stockout = res.data.stocktransaction)).catch(err=>console.log(err))
+            axios.get('/stock/in').then(res=>console.log(this.data_stockout = res.data.stocktransaction)).catch(err=>console.log(err))
         },
         stocktransactionDetail(){
             axios.get(`/stock/transaction/detail/${this.stockout_id}`).then(res=>{
@@ -407,7 +407,7 @@ export default {
         },
         getList() {
             this.listLoading = true
-            axios.post('/return/in').then(response => {
+            axios.post('/return/out').then(response => {
                 console.log(response, 'responseeeeeeeeeeeeeeeeeeeeeeee')
                 this.list = response.data.stocktransaction
                 this.total = response.data.stocktransaction.length
