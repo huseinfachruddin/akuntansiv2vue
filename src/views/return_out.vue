@@ -329,7 +329,7 @@ export default {
             dialogStatus: '',
             textMap: {
                 update: 'Edit',
-                create: 'Return Penjualan'
+                create: 'Retur Penjualan'
             },
             dialogPvVisible: false,
             pvData: [],
@@ -501,6 +501,16 @@ export default {
             this.total_kasIn = ''
         },
         createData() {
+            if (this.total_kasIn > this.jumlah_bayar) {
+                this.$notify({
+                    title: 'Gagal',
+                    message: 'Jumlah pembayarn kurang',
+                    type: 'warning',
+                    duration: 2000
+                })
+
+                return false
+            }
             if(this.jumlah_bayar > 0 && this.cashout_id == ''){
                  this.$notify({
                     title: 'Gagal',

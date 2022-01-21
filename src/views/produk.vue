@@ -24,7 +24,8 @@
         </el-table-column>
         <el-table-column label="QTY" width="150px" align="center" sortable prop="qty">
             <template slot-scope="{row}">
-                <span>{{ row.qty }}</span>
+                <span v-if="row.category == 'service'"></span>
+                <span v-if="row.category == 'product'">{{ row.qty }}</span>
             </template>
         </el-table-column>
         <el-table-column label="Kategori" width="150px" align="center" sortable prop="category">
@@ -33,7 +34,7 @@
                 <span v-if="row.category == 'product'">Barang</span>
             </template>
         </el-table-column>
-        <el-table-column label="Harga Beli" width="150px" align="center" sortable prop="date" v-if="checkPermission(['admin'])">
+        <el-table-column label="Harga Beli" width="150px" align="center" sortable prop="date" v-if="checkPermission(['admin','finance'])">
             <template slot-scope="{row}">
                 <span>{{ handleCurrency(row.purchase_price) }}</span>
             </template>
@@ -60,7 +61,7 @@
         </el-table-column>
 
         </el-table-column>
-        <el-table-column label="Actions" align="center" width="230" class-name="small-padding fixed-width" v-if="checkPermission(['admin'])">
+        <el-table-column label="Actions" align="center" width="230" class-name="small-padding fixed-width" v-if="checkPermission(['admin','finance'])">
             <template slot-scope="{row,$index}">
                 <el-button size="mini" type="primary" @click="handleUpdate(row)">
                     Edit

@@ -122,8 +122,8 @@
                 <el-form-item class="k" :label="index == 0 ? 'Harga Jual' : ''">
                     <v-money-spinner v-bind="config" v-model="all.harga_jual" required type="text" placeholder="Rp 0" @change="onChangeQty(index)"></v-money-spinner>
                 </el-form-item>
-                <el-form-item class="k" :label="index == 0 ? 'Harga Satuan' : ''">
-                    <v-money-spinner v-bind="config" v-model="all.harga" required type="text" placeholder="Rp 0" @change="onChangeQty(index)"></v-money-spinner>
+                <el-form-item class="k" :label="index == 0 ? 'Harga beli' : ''">
+                    <v-money-spinner v-bind="config" disabled v-model="all.harga" required type="text" placeholder="Rp 0" @change="onChangeQty(index)"></v-money-spinner>
                 </el-form-item>
                 <el-form-item class="k" :label="index == 0 ? 'Sub Total' : ''">
                     <v-money-spinner v-bind="config" disabled v-model="all.total" type="numeric" min="0.01" step="0.01" max="2500" placeholder="Rp 0" @change="onChangeTotal()"></v-money-spinner>
@@ -285,6 +285,19 @@ export default {
                 masked: false,
                 allowBlank : true
             },
+            jmlConfig:{
+                spinner: false,
+                step: 10,
+                prefix: "Rp ",
+                precision: 0,
+                decimal: ',',
+                min:this.total_kasIn,
+                thousands: '.',
+                bootstrap: true,
+                amend: false,
+                masked: false,
+                allowBlank : true
+            },
             kasIn: {
                 all: [{
                     product_id: '',
@@ -333,7 +346,7 @@ export default {
             dialogStatus: '',
             textMap: {
                 update: 'Edit',
-                create: 'Return Penjualan'
+                create: 'Retur Penjualan'
             },
             dialogPvVisible: false,
             pvData: [],
@@ -505,6 +518,16 @@ export default {
             this.total_kasIn = ''
         },
         createData() {
+            if (this.total_kasIn > this.jumlah_bayar) {
+                this.$notify({
+                    title: 'Gagal',
+                    message: 'Jumlah pembayarn kurang',
+                    type: 'warning',
+                    duration: 2000
+                })
+
+                return false
+            }
             if(this.jumlah_bayar > 0 && this.cashout_id == ''){
                  this.$notify({
                     title: 'Gagal',

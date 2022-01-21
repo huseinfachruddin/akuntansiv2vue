@@ -108,7 +108,7 @@
       </el-form>
       <!-- multiple input -->
       <div slot="footer" class="dialog-footer" style="display:flex; justify-content:center;   ">
-        <el-button @click="dialogFormVisible = false">
+        <el-button @click="dialogFormVisible = false,resetTemp()">
           Cancel
         </el-button>
         <el-button :loading="loading" type="primary" @click="createData()">
@@ -358,6 +358,12 @@ export default {
       }
     },
     handleCreate() {
+      this.from = ''
+      this.to_item =''
+      this.dates=''
+      this.keterangan=''
+      this.total_transfer=''
+      this.name=''
       this.resetTemp()
       this.dialogStatus = 'create'
       this.dialogFormVisible = true

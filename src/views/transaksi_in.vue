@@ -365,6 +365,11 @@ export default {
             }
         },
         handleCreate() {
+                this.to_item = ""
+                this.keterangan = ""
+                this.date = ""
+                this.name = ""
+            this.total_kasIn = ""
             this.resetTemp()
             this.dialogStatus = 'create'
             this.dialogFormVisible = true

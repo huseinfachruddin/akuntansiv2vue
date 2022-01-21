@@ -139,6 +139,16 @@ export const asyncRoutes = [
         title: 'Pesanan Penjualan',
         roles: ['admin', 'kasir','finance'] // or you can only set roles in sub nav
       }
+    },
+    {
+      path: '/penjualan/return',
+      component: () => import('@/views/return_in'),
+      name: 'return_in',
+      meta: {
+        icon: '',
+        title: 'Retur Penjualan',
+        roles: ['admin','finance','purchasing'] // or you can only set roles in sub nav
+      }
     }
     ]
   },
@@ -170,37 +180,17 @@ export const asyncRoutes = [
         title: 'Pesanan Pembelian',
         roles: ['admin','finance','purchasing'] // or you can only set roles in sub nav
       }
-    }
-    ]
-  },
-  {
-    path: '/Return',
-    component: Layout,
-    name: 'return',
-    meta: {
-      title: 'Return',
-      icon: 'shopping',
-      roles: ['admin','finance','purchasing'] // you can set roles in root nav
     },
-    children: [{
+    {
       path: '/pembelian/return',
       component: () => import('@/views/return_out'),
       name: 'return_out',
       meta: {
         icon: '',
-        title: 'Return Pembelian',
+        title: 'Retur Pembelian',
         roles: ['admin','finance','purchasing'] // or you can only set roles in sub nav
       }
-    }, {
-      path: '/penjualan/return',
-      component: () => import('@/views/return_in'),
-      name: 'return_in',
-      meta: {
-        icon: '',
-        title: 'Return Penjualan',
-        roles: ['admin','finance','purchasing'] // or you can only set roles in sub nav
-      }
-    }
+    },
     ]
   },
   {

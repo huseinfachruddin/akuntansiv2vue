@@ -405,6 +405,9 @@ export default {
             }
         },
         handleCreate() {
+            this.from = ''
+            this.keterangan=''
+            
             this.resetTemp()
             this.dialogStatus = 'create'
             this.dialogFormVisible = true
