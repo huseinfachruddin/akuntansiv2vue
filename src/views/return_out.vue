@@ -511,6 +511,11 @@ export default {
 
                 return false
             }
+            if (this.sisa_bayar == '') {
+                this.sisa_bayar=0
+            }
+            this.jumlah_bayar = this.jumlah_bayar - this.sisa_bayar
+
             if(this.jumlah_bayar > 0 && this.cashout_id == ''){
                  this.$notify({
                     title: 'Gagal',
