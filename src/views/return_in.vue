@@ -859,7 +859,7 @@ export default {
                 start_date: this.start,
                 end_date: this.end
             }
-            axios.post(`/stock/in`, data).then(response => {
+            axios.post(`/return/in`, data).then(response => {
 
                 this.list = response.data.stocktransaction.map(val => {
                     val['debt'] = (val.total - val.paid - val.discount) < 0 ? 0 : val.total - val.paid - val.discount 

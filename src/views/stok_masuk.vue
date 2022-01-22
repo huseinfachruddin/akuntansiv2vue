@@ -117,7 +117,7 @@
             <div v-for="(all, index) in kasIn.all" style="width:100%; padding-left:4px; display:flex; flex-wrap:wrap" v-if="dialogStatus == 'create'">
                 <el-form-item class="k" :label="index == 0 ? 'Barang' : ''">
                     <el-select v-model="all.product_id" filterable placeholder="Select" @change="onChangeProduct(index)">
-                        <el-option v-for="item in product" :key="item.id" :label="item.name" :value="item.id">
+                        <el-option v-for="item in product" :key="item.id" :label="item.name + '-['+item.code+']'" :value="item.id">
                         </el-option>
                     </el-select>
                 </el-form-item>

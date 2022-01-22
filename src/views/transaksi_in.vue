@@ -29,7 +29,7 @@
                 <span>{{ row.to.name }}</span>
             </template>
         </el-table-column>
-        <el-table-column label="Total" width="150px" align="center" sortable prop="cashin">
+        <el-table-column label="Total" width="150px" align="center" sortable prop="cashin" >
             <template slot-scope="{row}">
                 <span>{{ handleCurrency(row.cashin) }}</span>
             </template>

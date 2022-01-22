@@ -17,6 +17,15 @@
                 <span>{{ row.id }}</span>
             </template>
         </el-table-column>
+        <el-table-column label="Barcode" prop="code" sortable="custom" align="center" min-width="150px">
+            <template slot-scope="{row}" width="80">
+                <span>
+                <barcode :value="row.code" height="50" width="1">
+                    Show this if the rendering fails.
+                </barcode>
+                </span>
+            </template>
+        </el-table-column>
         <el-table-column label="Nama Produk" min-width="150px" sortable prop="name">
             <template slot-scope="{row}">
                 <span>{{ row.name }}</span>
@@ -80,6 +89,9 @@
             <el-form-item class="k" label="Nama Produk">
                 <el-input v-model="name" placeholder="Nama Produk" />
             </el-form-item>
+            <el-form-item class="k" label="Code">
+                <el-input v-model="code" placeholder="Nama Produk" />
+            </el-form-item>
              <el-form-item class="k" label="Kategori">
                 <el-select v-model="category">
                     <el-option label="Jasa" value="service" />
@@ -140,6 +152,7 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import axios from '@/api/axios'
 import qs from 'qs'
 import checkPermission from '@/utils/permission' // 权限判断函数
+import VueBarcode from 'vue-barcode';
 
 const calendarTypeOptions = [{
         key: 'cash',
@@ -160,7 +173,8 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 export default {
     name: 'ComplexTable',
     components: {
-        Pagination
+        Pagination,
+        'barcode': VueBarcode
     },
     directives: {
         waves
@@ -202,6 +216,7 @@ export default {
             purchase_price: '',
             qty: '',
             unit: '',
+            code: '',
             from: '',
             to_item: '',
             total_kasIn: '',
@@ -376,7 +391,8 @@ export default {
                 purchase_price: this.purchase_price,
                 unit: this.unit,
                 producttype: parseInt(this.producttype),
-                category : this.category
+                category : this.category,
+                code : this.code
             }
             this.loading = true
             axios.post('/product/create', data)
@@ -414,6 +430,7 @@ export default {
             this.unit = row.units
             this.producttype = row.producttype != null ? row.producttype.id : ''
             this.qty = row.qty
+            this.code = row.code
             this.dialogStatus = 'update'
             this.dialogFormVisible = true
             this.$nextTick(() => {
@@ -428,7 +445,8 @@ export default {
                 purchase_price: this.purchase_price,
                 unit: this.unit,
                 producttype: this.producttype,
-                category : this.category
+                category : this.category,
+                code : this.code
 
             }
             this.loading = true

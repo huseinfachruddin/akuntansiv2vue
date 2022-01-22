@@ -23,14 +23,14 @@
       :key="tableKey"
       v-loading="listLoading"
       :data="list.filter(({desc}) => !search || desc.toLowerCase().includes(search.toLowerCase()))"
-
       border
       fit
       highlight-current-row
       style="width: 100%;"
       @sort-change="sortChange"
+      
     >
-      <el-table-column label="ID" prop="id" sortable="custom" align="center" width="80" :class-name="getSortClass('id')">
+      <el-table-column label="ID" prop="id" sortable align="center" width="80">
         <template slot-scope="{row}">
           <span>{{ row.id }}</span>
         </template>
