@@ -360,7 +360,6 @@ export default {
     handleCreate() {
       this.from = ''
       this.to_item =''
-      this.dates=''
       this.keterangan=''
       this.total_transfer=''
       this.name=''

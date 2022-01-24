@@ -69,11 +69,11 @@
                 <span>{{ row.staff }}</span>
             </template>
         </el-table-column>
-        <el-table-column label="Jatuh Tempo" width="150px" align="center" sortable prop="payment_due">
+        <!-- <el-table-column label="Jatuh Tempo" width="150px" align="center" sortable prop="payment_due">
             <template slot-scope="{row}">
                 <span>{{ row.payment_due }}</span>
             </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column label="Date" width="150px" align="center" sortable prop="date">
             <template slot-scope="{row}">
                 <span>{{ row.date }}</span>
@@ -104,10 +104,10 @@
                 <el-date-picker v-model="dates" type="date" format="dd-MM-yyyy" placeholder="Tanggal Transaksi" >
                 </el-date-picker>
             </el-form-item>
-            <el-form-item class="k" label="Jatuh Tempo">
+            <!-- <el-form-item class="k" label="Jatuh Tempo">
                 <el-date-picker v-model="jatuh_tempo" type="date" format="dd-MM-yyyy" placeholder="Jatuh Tempo">
                 </el-date-picker>
-            </el-form-item>
+            </el-form-item> -->
 
             <div v-for="(all, index) in kasIn.all" style="width:100%; padding-left:4px; display:flex; flex-wrap:wrap" v-if="dialogStatus == 'create'">
                 <el-form-item class="k" :label="index == 0 ? 'Barang' : ''">
@@ -329,7 +329,7 @@ export default {
             dialogStatus: '',
             textMap: {
                 update: 'Edit',
-                create: 'Retur Penjualan'
+                create: 'Retur Pembelian'
             },
             dialogPvVisible: false,
             pvData: [],
