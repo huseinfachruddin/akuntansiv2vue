@@ -28,7 +28,7 @@
     <el-table
       :key="tableKey"
       v-loading="listLoading"
-      :data="list"
+      :data="list.filter(({desc}) => !search || desc.toLowerCase().includes(search.toLowerCase()))"
       border
       fit
       highlight-current-row
@@ -227,18 +227,18 @@ export default {
     }
   },
   created() {
-            this.$store.dispatch('user/isLicenceActived')
+    this.$store.dispatch('user/isLicenceActived')
 
     this.getList()
   },
   methods: {
-    error(){
+    error() {
       this.listLoading = false
       this.$notify({
-      title: 'Error',
-      message: 'Server Error',
-      type: 'warning',
-      duration: 2000
+        title: 'Error',
+        message: 'Server Error',
+        type: 'warning',
+        duration: 2000
       })
     },
     getList() {
@@ -344,41 +344,41 @@ export default {
       })
     },
     handleDelete(row, index) {
-           this.listLoading = true
+      this.listLoading = true
 
-   this.$confirm('Apakah anda serius mau menghapus ?', 'Warning', {
+      this.$confirm('Apakah anda serius mau menghapus ?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning'
-    }).then(() => {
-    axios.delete(`/cash/transaction/delete/${row.id}`)
-   .then((response) => {
-    this.listLoading = false
+      }).then(() => {
+        axios.delete(`/cash/transaction/delete/${row.id}`)
+          .then((response) => {
+            this.listLoading = false
 
-    this.$notify({
-      title: 'Success',
-      message: 'Delete Successfully',
-      type: 'success',
-      duration: 2000
-    })
-    this.list.splice(index, 1)
-  })
-   .catch((err) => {
-    this.listLoading = false
-    this.$notify({
-      title: 'Error',
-      message: 'Server Error',
-      type: 'warning',
-      duration: 2000
-    })
-  })
- }).catch(() => {
-    this.listLoading = false
-  this.$message({
-    type: 'info',
-    message: 'Delete canceled'
-  });          
-});
+            this.$notify({
+              title: 'Success',
+              message: 'Delete Successfully',
+              type: 'success',
+              duration: 2000
+            })
+            this.list.splice(index, 1)
+          })
+          .catch((err) => {
+            this.listLoading = false
+            this.$notify({
+              title: 'Error',
+              message: 'Server Error',
+              type: 'warning',
+              duration: 2000
+            })
+          })
+      }).catch(() => {
+        this.listLoading = false
+        this.$message({
+          type: 'info',
+          message: 'Delete canceled'
+        })
+      })
     },
     handleFetchPv(pv) {
       fetchPv(pv).then(response => {

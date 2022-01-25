@@ -1,22 +1,20 @@
 <template>
 
   <div class="app-container">
-     <div class="filter-container">
+    <div class="filter-container">
       <el-input v-model="search" placeholder="Cari" style="width: 200px;margin-right: 10px;" class="filter-item" />
 
-        <el-button v-if="roles == 'admin' || roles == 'finance'" class="filter-item" style="" type="primary" icon="el-icon-edit" @click="handleCreate">
-            Tambah
-        </el-button>
-        <el-button v-waves style="margin-right:20px; " :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
-            Export
-        </el-button>
-          <el-date-picker style="width:140px" width="140px" v-model="start" class="filter-item" type="date" placeholder="Dari">
-        </el-date-picker>
-        <el-date-picker style="margin-left:8px;width:140px;margin-right: 10px;"  v-model="end" class="filter-item" type="date" placeholder="Sampai">
-        </el-date-picker>
-        <el-button class="filter-item" style="" type="primary" icon="el-icon-edit" @click="handleFilterByDate">
-            Filter
-        </el-button>
+      <el-button v-if="roles == 'admin' || roles == 'finance'" class="filter-item" style="" type="primary" icon="el-icon-edit" @click="handleCreate">
+        Tambah
+      </el-button>
+      <el-button v-waves style="margin-right:20px; " :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
+        Export
+      </el-button>
+      <el-date-picker v-model="start" style="width:140px" width="140px" class="filter-item" type="date" placeholder="Dari" />
+      <el-date-picker v-model="end" style="margin-left:8px;width:140px;margin-right: 10px;" class="filter-item" type="date" placeholder="Sampai" />
+      <el-button class="filter-item" style="" type="primary" icon="el-icon-edit" @click="handleFilterByDate">
+        Filter
+      </el-button>
     </div>
 
     <el-table
@@ -28,39 +26,38 @@
       highlight-current-row
       style="width: 100%;"
       @sort-change="sortChange"
-      
     >
       <el-table-column label="ID" prop="id" sortable align="center" width="80">
         <template slot-scope="{row}">
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Dari Akun Kas" width="150px" align="center">
+      <el-table-column label="Dari Akun Kas" sortable width="150px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.from.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Ke Akun Kas" min-width="150px">
+      <el-table-column label="Ke Akun Kas" sortable min-width="150px">
         <template slot-scope="{row}">
           <span>{{ row.to.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Keterangan" width="150px" align="center">
+      <el-table-column label="Keterangan" sortable width="150px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.desc }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Total" width="150px" align="center">
+      <el-table-column label="Total" sortable width="150px" align="center">
         <template slot-scope="{row}">
           <span>{{ handleCurrency(row.transfer) }}</span>
         </template>
       </el-table-column>
-       <el-table-column label="Staff" min-width="150px">
+      <el-table-column label="Staff" sortable min-width="150px">
         <template slot-scope="{row}">
           <span @click="handleUpdate(row)">{{ row.staff }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Date" width="150px" align="center">
+      <el-table-column label="Date" sortable width="150px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.date }}</span>
         </template>
@@ -78,9 +75,16 @@
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form label-position="top"
-:inline="true" ref="dataForm" :rules="rules" :model="temp" label-width="180px" style="width: 100%; margin-left:50px;">
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+      <el-form
+        ref="dataForm"
+        label-position="top"
+        :inline="true"
+        :rules="rules"
+        :model="temp"
+        label-width="180px"
+        style="width: 100%; margin-left:50px;"
+      >
         <el-form-item class="k" label="Dari Kas">
           <el-select v-model="from" required class="filter-item" placeholder="Please select" @change="onChangeModal($event)">
             <el-option v-for="item in cash" :key="item.id" :label="item.name" :value="item.id" />
@@ -95,16 +99,16 @@
           <el-input v-model="keterangan" required type="text" placeholder="Please input" />
         </el-form-item>
         <el-form-item class="k" label="Sub Total">
-          <v-money-spinner v-model="total_transfer" placeholder="Rp 0"  v-bind="config" @change="onChangeTotal(value)"></v-money-spinner>
+          <v-money-spinner v-model="total_transfer" placeholder="Rp 0" v-bind="config" @change="onChangeTotal(value)" />
         </el-form-item>
-              <el-form-item class="k" label="Tgl Transaksi">
-      <el-date-picker
-        v-model="dates"
-        type="date"
-        format="dd-MM-yyyy"
-        placeholder="Tanggal Transaksi">
-      </el-date-picker>
-    </el-form-item>
+        <el-form-item class="k" label="Tgl Transaksi">
+          <el-date-picker
+            v-model="dates"
+            type="date"
+            format="dd-MM-yyyy"
+            placeholder="Tanggal Transaksi"
+          />
+        </el-form-item>
       </el-form>
       <!-- multiple input -->
       <div slot="footer" class="dialog-footer" style="display:flex; justify-content:center;   ">
@@ -143,7 +147,6 @@ import qs from 'qs'
 import { mapGetters } from 'vuex'
 import Cookies from 'js-cookie'
 
-
 const calendarTypeOptions = [
   { key: 'cash', display_name: 'cash' },
   { key: 'modal', display_name: 'modal' }
@@ -172,7 +175,7 @@ export default {
       return calendarTypeKeyValue[type]
     }
   },
-    computed: {
+  computed: {
     ...mapGetters([
       'name',
       'avatar',
@@ -181,27 +184,27 @@ export default {
   },
   data() {
     return {
-      start : '',
-      end : '',
-      dates : '',
-      search : '',
+      start: '',
+      end: '',
+      dates: '',
+      search: '',
       config: {
-          spinner: false,
-          step: 10,
-          prefix: "Rp ",
-          precision: 0,
-          decimal: ',',
-          thousands: '.',
-          bootstrap: true,
-          amend: false,
-          masked: false,
-          allowBlank : true
-        },
+        spinner: false,
+        step: 10,
+        prefix: 'Rp ',
+        precision: 0,
+        decimal: ',',
+        thousands: '.',
+        bootstrap: true,
+        amend: false,
+        masked: false,
+        allowBlank: true
+      },
       from: '',
       to_item: '',
       total_kasIn: '',
-      keterangan : '',
-      total_transfer:[],
+      keterangan: '',
+      total_transfer: [],
       kasIn: {
         all: [{ modal: '', total: '', desc: '' }]
       },
@@ -241,7 +244,7 @@ export default {
       },
       dialogPvVisible: false,
       pvData: [],
-      loading : false,
+      loading: false,
       rules: {
         type: [{ required: true, message: 'type is required', trigger: 'change' }],
         // timestamp: [{ type: 'date', required: true, message: 'timestamp is required', trigger: 'change' }],
@@ -251,17 +254,17 @@ export default {
     }
   },
   created() {
-            this.$store.dispatch('user/isLicenceActived')
+    this.$store.dispatch('user/isLicenceActived')
 
     this.getList()
   },
   methods: {
-        handleFilterByDate(){
-   this.listLoading = true
-   let data = {
-    start_date : this.start,
-    end_date : this.end
-   }
+    handleFilterByDate() {
+      this.listLoading = true
+      const data = {
+        start_date: this.start,
+        end_date: this.end
+      }
       axios.post(`/cash/transfer`, data).then(response => {
         console.log(response)
         this.list = response.data.cashtransaction
@@ -272,19 +275,19 @@ export default {
           this.listLoading = false
         }, 1.5 * 1000)
       })
-  },
+    },
     getList() {
-       let DD = new Date().getDate()
-    let MM = new Date().getMonth() + 1
-    let YYYY = new Date().getFullYear()
+      const DD = new Date().getDate()
+      const MM = new Date().getMonth() + 1
+      const YYYY = new Date().getFullYear()
 
-    this.dates = `${YYYY}-${MM}-${DD}`
+      this.dates = `${YYYY}-${MM}-${DD}`
       this.listLoading = true
       axios.get('/cash/transfer').then(async response => {
-        let res =await axios.get('/cashuser',{headers: { Authorization: 'Bearer '+Cookies.get('Admin-Token')}})
-        let data = res.data.cashuser
-        this.list = response.data.cashtransaction.filter(x=>data.find(({name})=>name==x.from.name)||data.find(({name})=>name==x.to.name))
-        console.log(this.list,'hassdf')        
+        const res = await axios.get('/cashuser', { headers: { Authorization: 'Bearer ' + Cookies.get('Admin-Token') }})
+        const data = res.data.cashuser
+        this.list = response.data.cashtransaction.filter(x => data.find(({ name }) => name == x.from.name) || data.find(({ name }) => name == x.to.name))
+        console.log(this.list, 'hassdf')
         this.total = response.data.cashtransaction.length
 
         // Just to simulate the time of the request
@@ -293,33 +296,34 @@ export default {
         }, 1.5 * 1000)
       })
       axios.get(`/akun/iscash`).then(response => {
-          console.log('cash', response)
-          this.cash = response.data.akun
+        console.log('cash', response)
+        this.cash = response.data.akun
       }).catch(() => {
         this.listLoading = false
-       this.$notify({
-        title: 'Error',
-        message: 'Server Error',
-        type: 'warning',
-        duration: 2000
-        })})
+        this.$notify({
+          title: 'Error',
+          message: 'Server Error',
+          type: 'warning',
+          duration: 2000
+        })
+      })
 
       axios.get(`/akun/notcash`).then(response => {
         this.modal = response.data.akun
       })
-      .catch(() => {
-        this.listLoading = false
-           this.$notify({
+        .catch(() => {
+          this.listLoading = false
+          this.$notify({
             title: 'Error',
             message: 'Server Error',
             type: 'warning',
             duration: 2000
           })
-      })
+        })
     },
-    handleCurrency(number){
-     const idr = new Intl.NumberFormat('in-IN', { style: 'currency', currency: 'IDR' }).format(number)
-     return idr
+    handleCurrency(number) {
+      const idr = new Intl.NumberFormat('in-IN', { style: 'currency', currency: 'IDR' }).format(number)
+      return idr
     },
     handleFilter() {
       this.listQuery.page = 1
@@ -359,10 +363,10 @@ export default {
     },
     handleCreate() {
       this.from = ''
-      this.to_item =''
-      this.keterangan=''
-      this.total_transfer=''
-      this.name=''
+      this.to_item = ''
+      this.keterangan = ''
+      this.total_transfer = ''
+      this.name = ''
       this.resetTemp()
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
@@ -381,17 +385,16 @@ export default {
       const total = []
       const akun_id = []
       this.kasIn.all.map((val, index) => {
-
         total.push(parseInt(val.total))
         akun_id.push(val.modal)
       })
       const data = {
         from: this.from,
         to: this.to_item,
-        date : this.dates,
-        desc : this.keterangan,
-        total : this.total_transfer,
-        staff : this.name
+        date: this.dates,
+        desc: this.keterangan,
+        total: this.total_transfer,
+        staff: this.name
       }
 
       var encodedValues = qs.stringify(
@@ -401,7 +404,7 @@ export default {
       console.log(encodedValues)
       axios.post('/cash/transfer/create', encodedValues)
         .then((response) => {
-      this.loading = false
+          this.loading = false
 
           this.getList()
           this.dialogFormVisible = false
@@ -415,11 +418,11 @@ export default {
         })
         .catch((err) => {
           this.$notify({
-                            title: 'Gagal',
-                            message: 'Anda Belum Melengkapi Data',
-                            type: 'warning',
-                            duration: 2000
-                        })
+            title: 'Gagal',
+            message: 'Anda Belum Melengkapi Data',
+            type: 'warning',
+            duration: 2000
+          })
         })
       // }
       // })
@@ -453,48 +456,46 @@ export default {
       })
     },
     handleDelete(row, index) {
-  
+      this.listLoading = true
 
-         this.listLoading = true
-
-   this.$confirm('Apakah anda serius mau menghapus ?', 'Warning', {
+      this.$confirm('Apakah anda serius mau menghapus ?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning'
-    }).then(() => {
-    axios.delete(`/cash/transaction/delete/${row.id}`)
-   .then((response) => {
-    this.listLoading = false
-      this.loading = false
+      }).then(() => {
+        axios.delete(`/cash/transaction/delete/${row.id}`)
+          .then((response) => {
+            this.listLoading = false
+            this.loading = false
 
-    this.$notify({
-      title: 'Success',
-      message: 'Delete Successfully',
-      type: 'success',
-      duration: 2000
-    })
-    this.list.splice(index, 1)
-  })
-   .catch((err) => {
-      this.loading = false
+            this.$notify({
+              title: 'Success',
+              message: 'Delete Successfully',
+              type: 'success',
+              duration: 2000
+            })
+            this.list.splice(index, 1)
+          })
+          .catch((err) => {
+            this.loading = false
 
-    this.listLoading = false
-    this.$notify({
-      title: 'Error',
-      message: 'Server Error',
-      type: 'warning',
-      duration: 2000
-    })
-  })
- }).catch(() => {
-      this.loading = false
-  
-    this.listLoading = false
-  this.$message({
-    type: 'info',
-    message: 'Delete canceled'
-  });          
-});
+            this.listLoading = false
+            this.$notify({
+              title: 'Error',
+              message: 'Server Error',
+              type: 'warning',
+              duration: 2000
+            })
+          })
+      }).catch(() => {
+        this.loading = false
+
+        this.listLoading = false
+        this.$message({
+          type: 'info',
+          message: 'Delete canceled'
+        })
+      })
     },
     handleFetchPv(pv) {
       fetchPv(pv).then(response => {
@@ -505,8 +506,8 @@ export default {
     handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['id','Dari Akun Kas', 'Ke Akun Kas', 'Keterangan', 'Total', 'staff']
-        const filterVal = ['id','from', 'to', 'desc', 'transfer', 'staff']
+        const tHeader = ['id', 'Dari Akun Kas', 'Ke Akun Kas', 'Keterangan', 'Total', 'staff']
+        const filterVal = ['id', 'from', 'to', 'desc', 'transfer', 'staff']
         const data = this.formatJson(filterVal)
         excel.export_json_to_excel({
           header: tHeader,
@@ -517,12 +518,8 @@ export default {
       })
     },
     formatJson(filterVal) {
-
       return this.list.map((v, i) => filterVal.map((j, index) => {
-
-             return j == 'from' || j == 'to' ? v[j]['name'] : v[j]
-
-          
+        return j == 'from' || j == 'to' ? v[j]['name'] : v[j]
       }))
     },
     getSortClass: function(key) {
