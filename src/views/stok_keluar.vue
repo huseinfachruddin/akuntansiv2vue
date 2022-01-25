@@ -113,6 +113,14 @@
     </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+  
+    <el-dialog title="Tambah Kontak" :visible.sync="dialogContact">
+
+          <ContactView/>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="outerVisible = false">Close</el-button>
+      </div>
+    </el-dialog>
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="top" label-width="180px" style="width: 100% !important; margin-left:50px;" :inline="true">
@@ -120,7 +128,8 @@
           <el-select v-model="contact_id" filterable required class="filter-item" placeholder="Please select" @change="filterProductPrice()">
             <el-option v-for="item in kontak" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
-          <el-button>Tambah Kontak</el-button>
+          <el-button @click="getContact" icon="el-icon-refresh"></el-button>
+          <el-button @click="dialogContact = true" icon="el-icon-circle-plus"></el-button>
         </el-form-item>
         <el-form-item v-if="dialogStatus == 'create'" class="k" label="Tgl Transaksi">
           <el-date-picker v-model="dates" type="date" placeholder="Tanggal Transaksi" />
@@ -214,6 +223,7 @@ import {
   mapGetters
 } from 'vuex'
 import Cookies from 'js-cookie'
+import ContactView from './supplier.vue'
 
 const calendarTypeOptions = [{
   key: 'cash',
@@ -234,10 +244,14 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 export default {
   name: 'ComplexTable',
   components: {
-    Pagination
+    Pagination,
+    ContactView
   },
   directives: {
     waves
+  },
+  watch(){
+
   },
   filters: {
     statusFilter(status) {
@@ -263,7 +277,7 @@ export default {
 
   data() {
     return {
-
+      dialogContact:false,
       start: '',
       end: '',
       dates: '',
@@ -495,7 +509,12 @@ export default {
         type: ''
       }
     },
-
+    async getContact(){
+      await axios.get('/contact/customer').then(async response => {
+        console.log(response.data)
+        this.kontak = await response.data.contact
+      })
+    },
     async resetForm() {
       this.kas = []
       this.contact_id = ''
