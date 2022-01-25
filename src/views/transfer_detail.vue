@@ -31,7 +31,7 @@
     <el-table
       :key="tableKey"
       v-loading="listLoading"
-      :data="list"
+      :data="list.filter(({desc}) => !search || desc.toLowerCase().includes(search.toLowerCase()))"
       border
       fit
       highlight-current-row
@@ -196,7 +196,7 @@ export default {
     }
   },
   created() {
-            this.$store.dispatch('user/isLicenceActived')
+    this.$store.dispatch('user/isLicenceActived')
 
     this.getList()
   },
@@ -216,9 +216,9 @@ export default {
       })
     },
 
-    handleCurrency(number){
-     const idr = new Intl.NumberFormat('in-IN', { style: 'currency', currency: 'IDR' }).format(number)
-     return idr
+    handleCurrency(number) {
+      const idr = new Intl.NumberFormat('in-IN', { style: 'currency', currency: 'IDR' }).format(number)
+      return idr
     },
     handleFilter() {
       this.listQuery.page = 1
